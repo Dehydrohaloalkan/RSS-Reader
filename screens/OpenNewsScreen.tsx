@@ -1,4 +1,3 @@
-import { View } from 'react-native'
 import React, { useEffect } from 'react'
 import WebView from 'react-native-webview';
 import { useNavigation } from '@react-navigation/native';
@@ -12,7 +11,7 @@ const OpenNewsScreen = (props: Props) => {
 
     useEffect(() => {
         navigation.setOptions({
-            title: props.route.params.item.title,
+            title: props.route.params.item.title.trim(),
         })
     }, []);
     

@@ -4,10 +4,10 @@
     "slug": "RSS-Reader",
     "version": "1.0.0",
     "orientation": "default",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/newspaper.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/newspaper.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -22,12 +22,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/newspaper.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.alexbondar03.RSSReader"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/newspaper.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a40f785c-f0f6-44b8-9972-fd61fdc3279c"
+      }
     }
   }
 }

@@ -7,49 +7,55 @@ import { ActivityIndicator, FlatList, RefreshControl, StyleSheet, View, ViewToke
 import { getNews } from '../services/NewsService'
 import { useFetching } from '../hooks/useFetching'
 import ListItem from '../components/ListItem'
+import RssChangeButton from '../components/RssChangeButton'
+import RssData from '../services/RssData';
+import RssChangeModal from '../components/RssChangeModal';
 
 type Props = {}
 
 const HomeScreen = (props: Props) => {
     const navigation = useNavigation();
-    const viewableItems = useSharedValue<ViewToken[]>([]);
     const [data, setData] = useState<FeedItem[]>([]);
-    
+    const [rssChangeVisible, setRssChangeVisible] = useState(false);
+    const [rss, setRss] = useState(RssData[0]);
+
     const [fetchNews, isLoading, error] = useFetching(async () => {
-        const rss = await getNews();
-        const title = rss.title;
+        const rssFeed = await getNews(rss);
+        const title = rssFeed.title;
         navigation.setOptions({
             title: title,
         })
-        const items = rss.items;
+        const items = rssFeed.items;
         setData(items);
     })
 
     useEffect(() => {
+        navigation.setOptions({
+            headerRight: () => (
+                <RssChangeButton onPress={() => setRssChangeVisible(true)} />
+            ),
+            title: 'Loading...'
+        })
         fetchNews();
-    }, [])
-
-    const onViewableItemsChanged = useCallback(
-        (ViewableItemsChangedInfo: any) => {
-            viewableItems.value = ViewableItemsChangedInfo.viewableItems;
-        },
-        []
-    );
+    }, [rss])
 
     return (
         <View style={styles.container}>
             {isLoading
                 ? <View style={styles.indicator}>
-                    <ActivityIndicator size={'large'} color={'#000000'}/>
+                    <ActivityIndicator size={'large'} color={'#000000'} />
                 </View>
                 : <FlatList
                     refreshControl={<RefreshControl refreshing={isLoading} onRefresh={fetchNews} />}
                     data={data}
-                    onViewableItemsChanged={onViewableItemsChanged}
                     renderItem={({ item }) => {
-                        return <ListItem item={item} viewableItems={viewableItems} />;
+                        return <ListItem item={item} />;
                     }}
                 />}
+            <RssChangeModal
+                visible={rssChangeVisible}
+                setVisible={setRssChangeVisible}
+                setRss={setRss} />
         </View>
     )
 }

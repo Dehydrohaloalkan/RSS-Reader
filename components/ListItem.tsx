@@ -1,44 +1,28 @@
 import React from 'react'
 import { FeedItem } from 'react-native-rss-parser';
 import { useNavigation } from '@react-navigation/native'
-import { ViewToken, StyleSheet, TouchableOpacity, Text } from 'react-native'
-import Animated, { useAnimatedStyle, withTiming } from 'react-native-reanimated';
+import { StyleSheet, TouchableOpacity, Text, View } from 'react-native'
 
 type Props = {
-    viewableItems: Animated.SharedValue<ViewToken[]>;
     item: FeedItem;
 };
 
 const ListItem = (props: Props) => {
     const navigation = useNavigation();
 
-    const rStyle = useAnimatedStyle(() => {
-        const isVisible = Boolean(
-            props.viewableItems.value
-                .filter((item) => item.isViewable)
-                .find((viewableItem) => viewableItem.item.id === props.item.id)
-        );
-
-        return {
-            opacity: withTiming(isVisible ? 1 : 0),
-            transform: [
-                {
-                    scale: withTiming(isVisible ? 1 : 0.6),
-                },
-            ],
-        };
-    }, []);
-
     return (
-        <Animated.View style={rStyle}>
+        <View>
             <TouchableOpacity
                 style={styles.container}
                 activeOpacity={0.7}
-                onPress={() => navigation.navigate('OpenNews', { item: props.item })}
+                onPress={() => {
+                    console.log("🚀 ~ file: ListItem.tsx:20 ~ ListItem ~ props.item:", props.item)
+                    navigation.navigate('OpenNews', { item: props.item });
+                }}
             >
-                <Text style={styles.title}>{props.item.title}</Text>
+                <Text style={styles.title}>{props.item.title.trim()}</Text>
             </TouchableOpacity>
-        </Animated.View>
+        </View>
     );
 };
 
@@ -54,8 +38,6 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 20,
         fontWeight: 'bold',
-        marginRight: 10,
-        marginBottom: 10,
     },
     content: {
         fontSize: 15,
