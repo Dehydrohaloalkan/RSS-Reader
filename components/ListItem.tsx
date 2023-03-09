@@ -16,7 +16,6 @@ const ListItem = (props: Props) => {
                 style={styles.container}
                 activeOpacity={0.7}
                 onPress={() => {
-                    console.log("🚀 ~ file: ListItem.tsx:20 ~ ListItem ~ props.item:", props.item)
                     navigation.navigate('OpenNews', { item: props.item });
                 }}
             >

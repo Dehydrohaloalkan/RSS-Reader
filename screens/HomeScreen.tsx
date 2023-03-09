@@ -1,8 +1,7 @@
 import { FeedItem } from 'react-native-rss-parser'
-import { useSharedValue } from 'react-native-reanimated'
 import { useNavigation } from '@react-navigation/native'
-import React, { useCallback, useEffect, useState } from 'react'
-import { ActivityIndicator, FlatList, RefreshControl, StyleSheet, View, ViewToken } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { ActivityIndicator, FlatList, RefreshControl, StyleSheet, View } from 'react-native'
 
 import { getNews } from '../services/NewsService'
 import { useFetching } from '../hooks/useFetching'
