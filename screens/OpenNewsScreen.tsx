@@ -14,9 +14,11 @@ const OpenNewsScreen = (props: Props) => {
             title: props.route.params.item.title.trim(),
         })
     }, []);
+
+    console.log(props.route.params.item);
     
     return (
-        <WebView source={{ uri: props.route.params.item.id }}/>
+        <WebView source={{ uri: props.route.params.item.links[0].url }}/>
     )
 }
 

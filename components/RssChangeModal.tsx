@@ -25,7 +25,7 @@ const RssChangeModal = (props: Props) => {
                     <CheckBox
                         key={index}
                         title={item.title}
-                        containerStyle={{ backgroundColor: 'white', borderWidth: 0 }}
+                        containerStyle={{ backgroundColor: 'white', borderWidth: 0, margin: 0, }}
                         checkedIcon="dot-circle-o"
                         uncheckedIcon="circle-o"
                         checked={checked === index}
